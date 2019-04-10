@@ -1,6 +1,6 @@
-# Alice Frontend
-# Aplicacion realizada por Grupo ASD S.A.S
-# Author del frontend => Giovanni Mora Jaimes, Nicolas Vivas Bernal
+# Front para CafeAPO
+# Aplicacion realizada por Giovanni Mora Jaimes
+# Author del frontend => Giovanni Mora Jaimes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 

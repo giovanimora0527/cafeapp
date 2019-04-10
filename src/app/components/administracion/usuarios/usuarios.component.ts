@@ -15,7 +15,6 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { Usuario } from "../../../_models/administracion/usuario/usuario";
 import { Estado } from "src/app/_models/administracion/menus/estado";
 import { Directivas } from "src/app/_directives/directiva/directiva.directive";
-import { Entidad } from "../../../_models/administracion/entidad/entidad";
 import { Perfil } from "src/app/_models/administracion/perfil/perfil";
 import { TipoDocumento } from '../../../_models/administracion/shared/tipo-documento';
 
@@ -28,7 +27,6 @@ import swal from "sweetalert2";
  * Servicios
  */
 import { UsuarioService } from "../../../_services/administracion/usuario/usuario.service";
-import { EntidadService } from "../../../_services/administracion/entidad/entidad.service";
 import { PerfilesService } from "../../../_services/administracion/perfiles/perfiles.service";
 import { TipoDocumentoService } from '../../../_services/shared/tipo-documento.service';
 import { Router } from "@angular/router";
@@ -49,8 +47,7 @@ export class UsuariosComponent implements OnInit {
   submitted = false;
   users: Usuario[] = [];
   usersAux: Usuario[] = [];
-  usersFilters: Usuario[] = [];
-  entidades: Entidad[] = [];
+  usersFilters: Usuario[] = [];  
   perfiles: Perfil[] = [];  
   emailRegex = /([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}/;
   justAlphaCharactersRegex = /^[A-Za-zÀ-ü]+( [A-Za-zÀ-ü]+)*$/;
@@ -81,7 +78,7 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
-    private entidadService: EntidadService,
+    
     private perfilesService: PerfilesService,
     private tipoDocumentoService: TipoDocumentoService,
     private spinner: NgxSpinnerService,
@@ -159,8 +156,7 @@ export class UsuariosComponent implements OnInit {
   ngOnInit() {
     this.inicializarFormsUsuario();
     this.cargarEstadosUsuario();
-    this.obtenerUsuarios();
-    this.cargarEntidades();
+    this.obtenerUsuarios();   
     this.cargarPerfiles();
     this.cargarTiposDocumentos();
   }
@@ -201,16 +197,7 @@ export class UsuariosComponent implements OnInit {
       ])
     });
   }
-
-  /**
-   * Metodo que permite cargar las entidades del sistema
-   */
-  cargarEntidades() {
-    this.entidadService.getEntidades().subscribe(data => {
-      this.entidades = data;
-      this.entidades = Directivas.orderAsc(this.entidades, 'nombre');
-    });
-  }
+ 
 
   /**
    * Metodo que permite cargar los perfiles del sistema

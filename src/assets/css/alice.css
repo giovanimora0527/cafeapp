@@ -53,7 +53,7 @@ body {
 }
 
 .cardHome .card {
-    //margin-top: 110px;
+    /* margin-top: 110px; */
     padding: 50px;
     height: auto!important;
 }
@@ -68,8 +68,6 @@ body {
     font-size: 0.85rem;
     color: #757575;
 }
-
-.cardHome .card b {}
 
 .cardHome .justify-content-center {
     margin: 0!important;
@@ -112,7 +110,7 @@ label {
 }
 
 .form-gp i {
-    color: #0077D5;
+    color: rgb(148, 47, 7);
 }
 
 .user-profile img.avatar {
@@ -122,33 +120,18 @@ label {
 
 #form_submit {
     font-size: 16px;
-    color: #ffffff;
-    width: 85%;
-    background: #0077d5;
-    /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #0077d5 0%, #880e4f 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #0077d5 0%, #880e4f 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #0077d5 0%, #880e4f 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#0077d5', endColorstr='#880e4f', GradientType=1);
-    /* IE6-9 fallback on horizontal gradient */
+    color: #dfd9d9 !important;
+    text-align: center !important;
+    padding-left: 35px;
+    width: 100%;
+    background: linear-gradient(to right, #EB3349 0%, #F45C43 51%, #EB3349 100%) !important;
 }
 
 #form_submit:hover,
 #form_submit:active {
-    width: 90%;
-    background: #2c71da;
-    /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #2c71da 0%, #2c71da 100%);
-    /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #2c71da 0%, #2c71da 100%);
-    /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #2c71da 0%, #2c71da 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#2c71da', endColorstr='#2c71da', GradientType=1);
-    /* IE6-9 fallback on horizontal gradient */
+    width: 100%;
+    color: #ffffff !important;
+    background-position: right center;
 }
 
 #exampleInputEmail1:active,
@@ -1228,10 +1211,10 @@ input[type="date"]::-webkit-clear-button {
 
 @media (max-width: 1600px) and (min-width: 768px) {
     .login-form-head img {
-        max-width: 60%;
+        max-width: 70%;
     }
     .login-form-head {
-        padding: 30px 50px;
+        padding: 20px 50px;
     }
     .login-form-body {
         padding: 25px 50px;
@@ -1278,4 +1261,12 @@ input[type="date"]::-webkit-clear-button {
     .titleCups h2 i {
         font-size: 1.5rem;
     }
+}
+
+.btn-grad {
+    background-image: linear-gradient(to right, #003973 0%, #E5E5BE 51%, #003973 100%)
+}
+
+.btn-grad:hover {
+    background-position: right center;
 }

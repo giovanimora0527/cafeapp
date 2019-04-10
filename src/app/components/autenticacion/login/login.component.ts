@@ -14,7 +14,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Session } from '../../../_models/autenticacion/session';
 
 import { NgxSpinnerService } from "ngx-spinner";
-import { EntidadService } from 'src/app/_services/administracion/entidad/entidad.service';
 
 @Component({
   selector: 'app-login',

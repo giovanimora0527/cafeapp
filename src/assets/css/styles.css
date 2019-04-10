@@ -2332,7 +2332,7 @@ table.dataTable thead td {
 /*-------------------- 23. Login ------------------- */
 
 .login-area {
-    background: #F3F8FB;
+    background: rgb(240, 223, 218);
 }
 
 .login-box {

@@ -6,8 +6,6 @@ import { Router } from '@angular/router';
  * Servicios
  */
 import { AutenticacionService } from '../../../_services/autenticacion/autenticacion.service';
-import { EntidadService } from '../../../_services/administracion/entidad/entidad.service';
-
 
 @Component({
   selector: "app-header",
@@ -22,7 +20,7 @@ export class HeaderComponent implements OnInit {
  
 
   constructor(private autenticacionService: AutenticacionService,
-    private router: Router, private entidadService: EntidadService) {}
+    private router: Router) {}
 
   ngOnInit() {
     this.cargarNombreUsuario();
@@ -50,12 +48,12 @@ export class HeaderComponent implements OnInit {
    * Metodo que permite obtener la entidad del usuario logueado en el sistema
    */
   obtenerEntidadUsuario() {
-     this.entidadService.getEntidadesById(this.idEntidad)
+     /* this.entidadService.getEntidadesById(this.idEntidad)
      .subscribe(
        data => {
          this.nombreEntidad = data["nombre"];          
        }
-     )
+     ) */
   }
 
 

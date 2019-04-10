@@ -57,6 +57,7 @@ a:visited {
 
 a:hover {
     text-decoration: none;
+    color: #a20202 !important;
 }
 
 a:focus {

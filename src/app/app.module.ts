@@ -57,6 +57,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UsuariosComponent } from './components/administracion/usuarios/usuarios.component';
 import { PermisosComponent } from './components/administracion/permisos/permisos.component';
 import { CambiarContrasenaComponent } from './components/autenticacion/cambiar-contrasena/cambiar-contrasena.component';
+import { TipoDocumentosComponent } from './components/administracion/tipo-documentos/tipo-documentos.component';
 
 import { WelcomeComponent } from './components/shared/welcome/welcome.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
@@ -100,7 +101,8 @@ import { TipoDocumentoService } from './_services/shared/tipo-documento.service'
     PermisosComponent,
     CambiarContrasenaComponent,    
     WelcomeComponent,    
-    NotFoundComponent    
+    NotFoundComponent,
+    TipoDocumentosComponent    
   ],
   imports: [
     BrowserModule,

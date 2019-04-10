@@ -19,7 +19,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { QueryService } from '../../query/query.service';
-import { TipologiaDocumento } from 'src/app/_models/administracion/tipologias/tipologias-documentos';
 
 /**
  * @author Giovanni Mora Jaimes 
@@ -49,7 +48,7 @@ export class TipologiasService {
    * Metodo que obtiene todas las tipologia de documentos de identidad del sistema
    */
   getTipologiasDocumentos() {
-    return this.http.get<TipologiaDocumento[]>(this.getUrlService());
+    //return this.http.get<TipologiaDocumento[]>(this.getUrlService());
   }
 
   /**
@@ -57,31 +56,31 @@ export class TipologiasService {
    * @param id 
    */
   getTipoDocumentoById(id: number){
-    return this.http.get<TipologiaDocumento>(this.getUrlService() + id);
+    //return this.http.get<TipologiaDocumento>(this.getUrlService() + id);
   }
 
   /**
    * Metodo que permite crear una tipologia de documento nuevo
    * @param tipoDocumento 
    */
-  createTipoDocumento(tipoDocumento: TipologiaDocumento){
-    return this.http.post(this.getUrlService(), tipoDocumento);
+  createTipoDocumento(tipoDocumento: any){
+    //return this.http.post(this.getUrlService(), tipoDocumento);
   }
   
   /**
    * Metodo que permite actualizar una tipologia de documento
    * @param tipoDocumento 
    */
-  updateTipoDocumento(tipoDocumento: TipologiaDocumento){
-    return this.http.put(this.getUrlService(), tipoDocumento);
+  updateTipoDocumento(tipoDocumento: any){
+    //return this.http.put(this.getUrlService(), tipoDocumento);
   }
 
   /**
    * Metodo que permite eliminar una tipologia de documento
    * @param tipoDocumento 
    */
-  deleteTipoDocumento(tipoDocumento: TipologiaDocumento){   
-    return this.http.delete(this.getUrlService() + tipoDocumento.id);
+  deleteTipoDocumento(tipoDocumento: any){   
+    //return this.http.delete(this.getUrlService() + tipoDocumento.id);
   }
 
 }

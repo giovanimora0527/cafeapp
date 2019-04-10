@@ -20,8 +20,6 @@ import { Router } from '@angular/router';
 import "rxjs/add/operator/delay";
 import { Subject } from 'rxjs';
 import * as jwt_decode from "jwt-decode";
-import { EntidadService } from './_services/administracion/entidad/entidad.service';
-import { Entidad } from './_models/administracion/entidad/entidad';
 import { Directivas } from './_directives/directiva/directiva.directive';
 
 /**
@@ -47,15 +45,15 @@ export class AppComponent {
   userActivity: any;
   userInactive: Subject<any> = new Subject();
   tiempoInactivacion: number;
-  entidad: Entidad;
+ 
   tiempoTranscurrido: number;
   isFinshedSession: boolean = false;
 
-  constructor(private router: Router, private entidadService: EntidadService,
+  constructor(private router: Router, 
     private autenticacionService: AutenticacionService) {     
      if(sessionStorage.getItem("currentUser") != undefined){     
        this.tiempoInactivacion = parseInt(sessionStorage.getItem("time"));  
-       this.obtenerEntidadUsuario();
+       //this.obtenerEntidadUsuario();
        this.setTimeout();        
        this.userInactive.subscribe(() => {
             var instancia = this.router;
@@ -89,7 +87,7 @@ export class AppComponent {
   /**
    * Metodo que permite obtener la entidad del usuario logueado en el sistema
    */
-   obtenerEntidadUsuario() {
+   /* obtenerEntidadUsuario() {
     var token = sessionStorage.getItem('currentUser');
     let info = jwt_decode(token);  
     var idEntidad = info.ent;
@@ -101,7 +99,7 @@ export class AppComponent {
         sessionStorage.setItem("time", "" + this.tiempoInactivacion);
       }
     )
- }
+ } */
 
   
 }

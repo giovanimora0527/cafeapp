@@ -1,0 +1,184 @@
+<ngx-spinner>
+    <p style="size: 'medium'; font-size: 20px; color: white">Cargando</p>
+</ngx-spinner>
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-white  h-100">
+                <div class="card-header text-center">
+                    <label style="font-size: 14px; color:#212529; font-family: poppins, sans-serif !important;">
+                          <b>CUPS Internos</b>
+                        </label>
+                </div>
+                <div class="card-body">
+                    <br>
+                    <div class="row align-items-center">
+                        <div class="col col-md-7">
+                            <div class="search-box w-100">
+                                <form autocomplete="off">
+                                    <input id="buscar_cups_internos" #search1 maxlength="255" type="text" name="search" placeholder="Buscar CUPS" required (keyup)="filterBy(search1.value)" style="margin-left: 0" class="w-100">
+                                    <i class="ti-search"></i>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col col-md-5">
+                            <div class="custom-control custom-checkbox pull-right">
+                                <input type="checkbox" class="custom-control-input" #check id="checkCups" (change)="mostrarTodoCupsInternos(check.checked)">
+                                <label class="custom-control-label control-label-checkbox-custom" for="checkCups">Mostrar todo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <table datatable class="table table-hover progress-table text-justify table-striped" [mfData]="resultadosInternos" #mf="mfDataTable" [mfActivePage]="1" [mfRowsOnPage]="20">
+                        <thead>
+                            <th>
+                                <mfDefaultSorter by="codigo">CUPS</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="detalle">Descripción</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="codHomologacion"></mfDefaultSorter>
+                            </th>
+                        </thead>
+                        <tbody *ngIf="resultadosInternos != null && resultadosInternos.length > 0;">
+                            <tr id="int_{{ c.id }}" class="" style="cursor: pointer;" *ngFor="let c of mf.data" (click)="selectItemInternos(c)">
+                                <td>
+                                    {{ c.codigo }}
+                                </td>
+                                <td class="alinear-col-left">
+                                    {{ c.detalle }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="notification-area pull-center" *ngIf="c.codHomologar != null && c.codHomologar != ''">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="resultadosInternos == null || resultadosInternos.length == 0;">
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    No hay registros de CUPS Internos para homologar
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngIf="resultadosInternos != null && resultadosInternos.length > 0">
+                            <tr>
+                                <td colspan="3">
+                                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="col col-md-12 text-right" *ngIf="resultadosInternos != null && resultadosInternos.length > 0">
+                        <label>Total de registros encontrados:  {{ resultadosInternos.length }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-white h-100">
+                <div class="card-header text-center">
+                    <label style="font-size: 14px; color:#212529; font-family: poppins, sans-serif !important;">
+                          <b>CUPS Norma</b>
+                        </label>
+                </div>
+                <div class="card-body">
+                    <br>
+                    <div class="row align-items-center">
+                        <div class="col col-md-6">
+                            <div class="input-group">
+                                <label>Norma:</label>
+                            </div>
+                            <div class="input-group">
+                                <select id="select-combo-norma-cups" class="form-control" #norma (change)="selectNorma($event)">
+                                        <option disabled [selected]="normaSelected == null">Seleccione una norma</option>                     
+                                        <option [value]="n.id" *ngFor="let n of normas; let i of index;" [selected]="n.id == normaSelected.id">{{ n.nombre }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col col-md-6">
+                            <div class="search-box pr-10 w-100 mt-3">
+                                <form autocomplete="off">
+                                    <input id="buscar_cups" #search maxlength="255" type="text" name="search" placeholder="Buscar CUPS" required (keyup)="filterByNorma(search.value)" class="w-100 ml-0">
+                                    <i class="ti-search"></i>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row align-items-center">
+                        <div class="col col-md-12">
+                            <div class="custom-control custom-checkbox pull-right">
+                                <input type="checkbox" class="custom-control-input" #check2 id="checkCups2" (change)="mostrarTodoCupsXNorma(check2.checked)">
+                                <label class="custom-control-label control-label-checkbox-custom" for="checkCups2">Mostrar todo</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <table datatable class="table table-hover progress-table text-justify table-striped" [mfData]="resultados" #second="mfDataTable" [mfActivePage]="1" [mfRowsOnPage]="20">
+                        <thead>
+                            <th>
+                                <mfDefaultSorter by="codigo">CUPS</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="detalle">Descripción</mfDefaultSorter>
+                            </th>
+                            <th class="text-center">
+                                <mfDefaultSorter by="codHomologacion"></mfDefaultSorter>
+                            </th>
+                        </thead>
+                        <tbody *ngIf="resultados != null && resultados.length > 0;">
+                            <tr id="norma_{{ c.id }}" class="" style="cursor: pointer;" *ngFor="let c of second.data" (click)="selectItemCupsXNorma(c)">
+                                <td>
+                                    {{ c.codigo }}
+                                </td>
+                                <td class="alinear-col-left">
+                                    {{ c.detalle }}
+                                </td>
+                                <td class="text-center">
+                                    <div class="notification-area pull-center text-info" *ngIf="(cupsSelectedInterno == null || cupsSelectedInterno.codHomologar == null || cupsSelectedInterno.codHomologar == '') && isNormaSelectedActual && habilitarBtns" (click)="homologar(c)" placement="left"
+                                        ngbTooltip="Homologar">
+                                        <i class="fa fa-link"></i>
+                                    </div>
+                                    <div class="notification-area pull-center text-danger" *ngIf="isNormaSelectedActual && habilitarBtns && cupsSelectedInterno != null && c.codigo == cupsSelectedInterno.codHomologar" (click)="deshomologar(c)" placement="left" ngbTooltip="Desvincular">
+                                        <i class="fa fa-unlink"></i>
+                                    </div>
+                                    <div class="notification-area pull-center" *ngIf="!isNormaSelectedActual && normaSelected != null && cupsSelectedInterno != null && normaSelected.id == c.norma && c.codHomologar != null && cupsSelectedInterno.codigo == c.codHomologar" placement="left"
+                                        ngbPopover="Está homologado con el código {{ c.codHomologar }} con descripción: {{ c.detalle }}" triggers="mouseenter:mouseleave" popoverTitle="Información">
+                                        <i class="fa fa-eye"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="resultados == null || resultados.length == 0;">
+                            <tr>
+                                <td colspan="3" class="text-center">
+                                    <label *ngIf="normaSelected != null && normaSelected.id == normaActual.id">No hay registros de CUPS de Norma {{ normaActual.nombre }} relacionados</label>
+                                    <label *ngIf="normaSelected != null && normaSelected.id != normaActual.id">No hay registros de CUPS de Norma {{ normaSelected.nombre }}</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngIf="resultados != null && resultados.length > 0;">
+                            <tr>
+                                <td colspan="3">
+                                    <mfBootstrapPaginator></mfBootstrapPaginator>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="col col-md-12 text-right" *ngIf="resultados != null && resultados.length > 0">
+                        <label>Total de registros encontrados:  {{ resultados.length }}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

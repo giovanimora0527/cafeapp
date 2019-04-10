@@ -1,0 +1,14 @@
+/* .modal-lg {
+    max-width: 95%;
+}
+
+.modal-md {
+    max-width: 75%;
+} */
+
+.table-wrapper-scroll-y {
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}

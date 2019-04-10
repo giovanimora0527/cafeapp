@@ -1,0 +1,365 @@
+/* 
+-----------------------------------
+----- ESTILOS PERSONALIZADOS ALICE
+-----------------------------------
+*/
+
+body {}
+
+.user-profile img.avatar {
+    height: 30px;
+    width: 30px;
+}
+
+#form_submit {
+    font-size: 16px;
+    color: #ffffff;
+    width: 85%;
+    background: #0077d5;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #0077d5 0%, #880e4f 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #0077d5 0%, #880e4f 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #0077d5 0%, #880e4f 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#0077d5', endColorstr='#880e4f', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+}
+
+#form_submit:hover,
+#form_submit:active {
+    width: 90%;
+    background: #2c71da;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #2c71da 0%, #2c71da 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #2c71da 0%, #2c71da 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #2c71da 0%, #2c71da 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#2c71da', endColorstr='#2c71da', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+}
+
+#exampleInputEmail1:active,
+#exampleInputEmail1:focus,
+#exampleInputPassword1:active,
+#exampleInputPassword1:focus {
+    border-bottom: 1px solid #0077D5;
+}
+
+.login-s2:before {
+    box-shadow: none;
+}
+
+.main-content {
+    background: #F5F5F5;
+}
+
+.sidebar-menu {
+    background: #173255;
+}
+
+.metismenu>li:hover>a,
+.metismenu>li.active>a {
+    background: #001E44;
+}
+
+.header-area {
+    padding: 0px 30px;
+    background: #1764bd;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #1764bd 0%, #1b1464 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #1764bd 0%, #1b1464 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #1764bd 0%, #1b1464 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#1764bd', endColorstr='#1b1464', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+}
+
+.sidebar-header {
+    background: #FFFFFF;
+    padding: 13px 32px 15px;
+}
+
+.btn-primary {
+    padding: 7px 15px;
+    background-color: #0077d5;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.btn-primary:hover {
+    background-color: #069aff;
+    border-color: #069aff;
+}
+
+.btn-primary i.fa {
+    font-size: 15px;
+    margin-right: 8px;
+}
+
+.mt-5,
+.my-5 {
+    margin-top: 1rem!important;
+}
+
+.mb-5,
+.my-5 {
+    margin-bottom: 1rem!important;
+}
+
+.nav-btn span {
+    background: #ffffff;
+}
+
+.user-name {
+    font-size: 14px;
+}
+
+.metismenu li a {
+    font-size: 14px;
+}
+
+.metismenu li a i {
+    color: #6BACFF;
+}
+
+.cripto-live ul li {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #606060;
+}
+
+.card {
+    height: 70vh;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.removeHeight .card {
+    height: auto;
+    overflow: inherit;
+}
+
+.card-scroll {
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 61vh;
+}
+
+.card:hover {
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #E9E9E9;
+}
+
+.card ::-webkit-scrollbar {
+    width: 10px;
+}
+
+.card ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.card ::-webkit-scrollbar-thumb {
+    background-color: #DBDADA;
+    outline: 1px solid slategrey;
+}
+
+.user-profile {
+    background: #00d3cd;
+    /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #00d3cd 1%, #0077d5 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #00d3cd 1%, #0077d5 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #00d3cd 1%, #0077d5 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00d3cd', endColorstr='#0077d5', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+}
+
+.notification-area a {
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ti-check-box {
+    color: #0FC409;
+    font-size: 1.2rem;
+    cursor: default!important;
+    vertical-align: middle;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+    -webkit-transition: color 0.1s ease 0s;
+    transition: color 0.1s ease 0s;
+}
+
+.ti-na {
+    color: #F20000;
+    font-size: 1.2rem;
+    cursor: default!important;
+    vertical-align: middle;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+    -webkit-transition: color 0.1s ease 0s;
+    transition: color 0.1s ease 0s;
+}
+
+.notification-area a>i {
+    font-size: 17px;
+    vertical-align: middle;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+    -webkit-transition: color 0.1s ease 0s;
+    transition: color 0.1s ease 0s;
+}
+
+.notification-area a.edit>i,
+.table tr td a.edit i {
+    color: #0077D5;
+}
+
+.notification-area a.trash>i,
+.table tr td a.trash i {
+    color: #E51D5A;
+}
+
+.notification-area a.edit:hover>i,
+.table tr td a.edit:hover i {
+    color: #2DC6FF;
+}
+
+.notification-area a.trash:hover>i,
+.table tr td a.trash:hover i {
+    color: #FC9FAF;
+}
+
+.mainButtons {
+    padding: 20px 0;
+}
+
+.list-group-item:hover {
+    background-color: #F5F5F5;
+}
+
+.table tr td a i {
+    margin-right: 12px;
+}
+
+.table tr td a i {
+    font-size: 1.2rem;
+}
+
+.table td,
+.table th {
+    padding: .65rem;
+    font-size: 0.80rem;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #F6F6F6;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, .075)!important;
+}
+
+.search-box {
+    margin-top: 12px;
+}
+
+.search-box input {
+    background: #ffffff;
+    border: 1px solid #D1D1D1;
+}
+
+.search-box form i {
+    font-weight: bold;
+    color: #0077D5;
+}
+
+.pages {
+    margin-top: 15px;
+}
+
+.pages .card-body {
+    padding: 1.2rem;
+}
+
+.page-item.disabled .page-link {
+    color: #ffffff;
+    background-color: #0077D5;
+}
+
+.footer-area {
+    padding: 10px 0 10px;
+}
+
+.footer-area p {
+    font-size: 12px;
+}
+
+
+/* --------------------------*/
+
+
+/* ----- MEDIA QUERYS--------*/
+
+
+/* --------------------------*/
+
+@media (max-width: 1600px) and (min-width: 1366px) {
+    .sidebar-menu {
+        width: 250px;
+    }
+    .page-container {
+        padding-left: 250px;
+    }
+}
+
+@media (max-width: 1364px) and (min-width: 1200px) {
+    .sbar_collapsed .sidebar-menu {
+        width: 265px!important;
+    }
+    .sbar_collapsed .nav-btn {
+        left: 265px;
+    }
+    .main-content-inner {
+        padding: 0 15px 30px;
+    }
+}
+
+@media (max-width: 1600px) and (min-width: 1024px) {
+    .card {
+        height: 66vh;
+    }
+    .mainButtons {
+        padding: 15px 0;
+    }
+    .card-scroll {
+        height: 52vh;
+    }
+}

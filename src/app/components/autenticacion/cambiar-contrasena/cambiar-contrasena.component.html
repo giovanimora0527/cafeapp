@@ -1,0 +1,62 @@
+<ngx-spinner>
+    <p style="font-size: 20px; color: white">Guardando</p>
+</ngx-spinner>
+<div class="login-area login-s2">
+    <div class="container">
+        <div class="login-box" *ngIf="!ifValido">
+            <div class="error-content text-center">
+                <h2>404</h2>
+                <p style="color:#C70039 ">Error:
+                    <br> {{ errorMessage }}
+                </p>
+                <br>
+                <div class="submit-btn-area">
+                    <button id="form_submit" type="submit" [routerLink]="['']">Regresar al Login <i class="ti-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="login-box" *ngIf="ifValido">
+            <form [formGroup]="passForm" autocomplete="off">
+                <div class="login-form-head">
+                    <img src="assets/images/logos/logo-login.png">
+                </div>
+                <div class="form-footer text-center">
+                    <p class="text-muted">Cambiar Contraseña</p>
+                </div>
+                <div class="login-form-body">
+                    <div class="form-gp">
+                        <input trim="blur" type="password" placeholder="Nueva Contraseña" id="contrasena" maxlength="255" formControlName="passNew" [ngClass]="{ 'is-invalid': submitted && f.passNew.errors }">
+                        <i class="ti-lock"></i>
+                        <span *ngIf="submitted && f.passNew.errors" class="invalid-feedback-login text-right">
+                                <div *ngIf="f.passNew.errors['required']" >
+                                        Campo obligatorio
+                                </div>                                
+                                <div *ngIf="f.passNew.errors['pattern']">
+                                        Debe contener al menos un número, una letra minúscula, una mayúscula y un simbolo
+                                </div>                               
+                        </span>
+                    </div>
+
+                    <div class="form-gp">
+                        <input trim="blur" type="password" placeholder="Confirmar Contraseña" id="confirmar" maxlength="255" formControlName="passConf" [ngClass]="{ 'is-invalid': submitted && f.passConf.errors }">
+                        <i class="ti-lock"></i>
+                        <span *ngIf="submitted && f.passConf.errors" class="invalid-feedback-login text-right">
+                                <div *ngIf="f.passConf.errors['required']">
+                                    Campo obligatorio 
+                                </div>  
+                                <div *ngIf="f.passConf.errors['pattern']">
+                                        Debe contener al menos un número, una letra minúscula, una mayúscula y un simbolo
+                                </div>                              
+                        </span>
+                    </div>
+
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit" (click)="cambiarContrasena()">
+                            Cambiar <i class="ti-arrow-right"></i>
+                         </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

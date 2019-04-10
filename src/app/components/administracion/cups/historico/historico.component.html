@@ -1,0 +1,101 @@
+<!-- Contenido Principal -->
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <ul class="breadcrumbs pull-left">
+                    <li><span><a [routerLink]="['/home']">Parametrizar</a></span></li>
+                    <li><a href="javascript:void(0)" [routerLink]="['/home', {outlets: {'content': [ 'gestionar-cups' ]}}]">CUPS</a></li>
+                    <li><span>{{ title }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner type="square-jelly-box">
+    <p style="font-size: 20px; color: white"> {{ msjSpinner }}</p>
+</ngx-spinner>
+
+<div class="main-content-inner">
+    <div class="sales-report-area mt-2 mb-5">
+        <div class="row">
+            <div class="col-md-7 titleCups">
+                <h2 class="align-items-center"><i class="fa fa-arrow-circle-right"></i>Datos no cargados</h2>
+                <span>A continuación una vista previa de los datos<br/> que no se lograron importar</span>
+            </div>
+            <div class="col col-md-5 align-items-end">
+                <div class="search-box pull-right">
+                    <form autocomplete="off">
+                        <input id="buscar_archivos_cums" #search maxlength="255" type="text" name="search" placeholder="Buscar" required (keyup)="filterBy(search.value)">
+                        <i class="ti-search"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-12 text-right" *ngIf="resultados != null && resultados.length > 0">
+                <label>Total de registros encontrados:  {{ resultados.length }}</label>
+            </div>
+        </div>
+        <div class="row removeHeight">
+            <div class="col col-md-12">
+                <div class="card">
+                    <div class="card-body card-panel">
+                        <div class="single-table">
+                            <div class="table-responsive table-wrapper-scroll-y">
+                                <table datatable class="table table-hover progress-table text-justify table-striped" [mfData]="resultados" #mf="mfDataTable" [mfRowsOnPage]="20">
+                                    <thead>
+                                        <th>
+                                            <mfDefaultSorter by="nombre">Nombre</mfDefaultSorter>
+                                        </th>
+                                        <th class="text-center">
+                                            <mfDefaultSorter by="fechaCarga">Fecha de Carga</mfDefaultSorter>
+                                        </th>
+                                        <th class="text-center">
+                                            <b>Descargar</b>
+                                        </th>
+                                    </thead>
+                                    <tbody *ngIf="resultados && resultados.length; else noRegistro">
+                                        <tr *ngFor="let r of mf.data">
+                                            <td>
+                                                {{ r.nombre }}
+                                            </td>
+                                            <td class="text-center" *ngIf="r.fechaCarga != undefined || r.fechaCarga != null">
+                                                {{ r.fechaCarga | date:'dd/MM/yyyy, h:mm:ss a' }}
+                                            </td>
+                                            <td class="text-center" *ngIf="r.fechaCarga == undefined">
+                                                N/A
+                                            </td>
+                                            <td class="text-center">
+                                                <a placement="right" ngbTooltip="Descargar" class="edit settings-btn" id="{{ 'btn_descarga_ + r.path' }}" (click)="descargarArchivoSeleccionado(r)">
+                                                    <i class="ti-download"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <ng-template #noRegistro>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" colspan="7">
+                                                    <label>No hay registros disponibles.</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </ng-template>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4">
+                                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

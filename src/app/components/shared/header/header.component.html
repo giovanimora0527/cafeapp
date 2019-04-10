@@ -1,0 +1,25 @@
+<!-- header area start -->
+<div class="header-area">
+    <div class="row align-items-center">
+        <div class="col-md-4 col-sm-8 clearfix">
+            <div class="nav-btn pull-left">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="col-md-8 col-sm-8 clearfix">
+            <div class="titleUser">
+                <div class="user-profile pull-right">
+                    <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
+                    <h4 role="button" class="user-name dropdown-toggle" data-toggle="dropdown" id="userOption">{{ name | titlecase }} <i class="fa fa-angle-down"></i></h4>
+                    <div class="dropdown-menu" id="dropdown">
+                        <a class="dropdown-item" [routerLink]="['/home', {outlets: {'content': [ 'configuracion' ]}}]">Cambiar Contraseña</a>
+                        <a class="dropdown-item" href="#">Cerrar sesión</a>
+                    </div>
+                </div>
+                <h3 style="font-family: 'Lato', sans-serif !important; font-size: 20px"> {{ nombreEntidad | uppercase }} </h3>
+            </div>
+        </div>
+    </div>
+</div>

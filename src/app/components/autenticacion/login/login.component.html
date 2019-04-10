@@ -1,0 +1,61 @@
+<!-- login area start -->
+<div class="login-area login-s2" [style.display]="isHidden ? 'none' : 'block'">
+    <div class="container">
+        <div class="login-box">
+            <form [formGroup]="loginForm" autocomplete="off">
+                <div class="login-form-head">
+                    <img src="assets/images/logos/logo-login.png">
+                </div>
+                <div class="form-footer text-center">
+                    <p class="text-muted">INICIAR SESIÓN</p>
+                </div>
+                <div class="login-form-body">
+                    <div class="form-group form-gp">
+                        <label for="usuario">Email</label>
+                        <input type="text" trim="blur" autocomplete="off" spellcheck="false" id="usuarioInput" maxlength="255" #user formControlName="usuario" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }">
+                        <i class="ti-email"></i>
+                        <span *ngIf="submitted && f.usuario.errors" class="invalid-feedback-login">
+                                <div *ngIf="f.usuario.errors['required']">
+                                    Campo obligatorio 
+                                </div> 
+                                <div *ngIf="f.usuario.errors['maxLength']">
+                                       La longitud máxima es de 255 caracteres. Verifique e intente de nuevo. 
+                                </div> 
+                                <div *ngIf="f.usuario.errors['pattern']">
+                                        El email no es válido. Verifique e intente de nuevo.
+                                </div>                               
+                        </span>
+                    </div>
+
+                    <div class="form-gp">
+                        <label for="contrasena">Contraseña</label>
+                        <input type="password" trim="blur" autocomplete="off" spellcheck="false" id="contrasenaInput" #pass formControlName="contrasena" [ngClass]="{ 'is-invalid': submitted && f.contrasena.errors }">
+                        <i class="ti-lock"></i>
+                        <span *ngIf="submitted && f.contrasena.errors" class="invalid-feedback-login">
+                            <div *ngIf="f.contrasena.errors['required']">
+                                Campo obligatorio
+                            </div>                                        
+                        </span>
+
+                    </div>
+
+                    <div class="row mb-4 rmber-area">
+                        <div class="col-12 text-center">
+                            <a [routerLink]="['recordar']">¿Olvidó su contraseña?</a>
+                        </div>
+                    </div>
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit" (click)="login()">
+                            Ingresar <i class="ti-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <span class="copyright text-center">
+        Desarrollado por <a href="http://www.grupoasd.com.co/" target="_blank">©GRUPO ASD</a> 
+        <br>Todos los derechos reservados. {{ anio }}
+    </span>
+</div>
+<!-- login area end -->

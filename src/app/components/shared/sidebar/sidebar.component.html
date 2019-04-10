@@ -1,0 +1,24 @@
+<div class="sidebar-header">
+    <div class="logo">
+        <a [routerLink]="['/home']" title="Alice"><img src="assets/images/logos/logo.png" alt="logo"></a>
+    </div>
+</div>
+<div class="main-menu">
+    <div class="menu-inner">
+        <nav>
+            <ul class="metismenu" id="menu">
+                <li id="menu_{{ m.nombreMenu }}" routerLinkActive="active" *ngFor="let m of $menus; let i = index;" class="text-capitalize">
+                    <a href="javascript:void(0)" *ngIf="m.estado == 1" aria-expanded="true" (click)="selectMenu(m)"><i class="{{m.iconoMenu}}"></i><span>{{m.nombreMenu}}</span></a>
+                    <ul *ngFor="let submenu of m.menusHijos; let j = index;" id="{{j}}">
+                        <li id="menu_{{ submenu.nombreMenu }}" routerLinkActive="active" *ngIf="submenu.estado == 1">
+                            <a [routerLink]="['/home', {outlets: {'content': [ submenu.rutaMenu ]}}]">
+                                <i class="{{ submenu.iconoMenu }}"></i>
+                                <span>{{ submenu.nombreMenu }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>l

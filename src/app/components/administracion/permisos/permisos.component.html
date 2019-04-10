@@ -1,0 +1,97 @@
+<ngx-spinner>
+    <p style="size: 'medium'; font-size: 20px; color: white">Guardando</p>
+</ngx-spinner>
+<!-- Contenido Principal -->
+
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <ul class="breadcrumbs pull-left">
+                    <li><span><a [routerLink]="['/home']">Parametrizar</a></span></li>
+                    <li><span><a href="javascript:void(0)" [routerLink]="['/home', {outlets: {'content': [ 'perfiles' ]}}]">&nbsp; Perfiles</a></span></li>
+                    <li><span>&nbsp;{{title | titlecase}} &nbsp;/ &nbsp;{{ nombreperfil }} </span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content-inner">
+
+    <div class="sales-report-area mt-2 mb-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mainButtons">
+                    <a href="javascript:void(0)" class="btn btn-rounded btn-primary mb-3" (click)="guardarPermisos()">
+                        <i class="fa fa-plus"></i> Guardar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row removeHeight">
+            <div class="col-md-4">
+                <div class="card p-0 mb-0 bg-white h-100" style="padding: 0.7rem;">
+                    <div class="card-header text-center">
+                        <h6 class="pt-1">
+                            <span><b>Menu Raíz</b></span>
+                        </h6>
+                    </div>
+                    <div class="card-body card-scroll mb--10" style="padding: 0rem;" *ngIf="menus != null && menus.length > 0">
+                        <ul id="menu_permisos" class="list-group list-group-flush" *ngFor="let m of menus; let i = index;">
+                            <li id="{{ m.nombreMenu }}" class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer;" *ngIf="m.estado != 0" (click)="cargarSubmenus(m)">
+                                {{ m.nombreMenu | titlecase }}
+                                <input id="checkbox_menu_permiso_{{i+1}}" type="checkbox" [(ngModel)]="m.checkeado" class="checkbox-rounded checkbox-inline" #checkM (click)="onChangeCheckboxMenu(m, checkM.checked)">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body text-center" *ngIf="menus == null || menus.length == 0">
+                        <label>No hay menús registrados.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="card p-0 mb-0 bg-white h-100">
+                    <div class="card-header text-center">
+                        <h6 class="pt-1">
+                            <span><b>Submenú</b></span>
+                        </h6>
+                    </div>
+                    <div class="card-body card-scroll mb--10" style="padding: 0rem;" *ngIf="submenus!= null && submenus.length > 0">
+                        <ul id="submenu_permiso" class="list-group list-group-flush" *ngFor="let m of submenus; let i = index;">
+                            <li id="{{ m.nombreMenu }}" class="list-group-item d-flex justify-content-between align-items-center" (click)="cargarAccionesMenu(m)" style="cursor:pointer;" *ngIf="m.estado != 0">
+                                {{ m.nombreMenu }}
+                                <input id="checkbox_submenu_permiso_{{i+1}}" type="checkbox" [(ngModel)]="m.checkeado" class="checkbox-rounded checkbox-inline" #checkS (click)="onChangeCheckboxMenu(m, checkS.checked)">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body text-center" *ngIf="submenus == null || submenus.length == 0">
+                        <label>No hay submenús registrados.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="card p-0 mb-0 bg-white h-100">
+                    <div class="car-body">
+                        <div class="card-header text-center">
+                            <h6 class="pt-1">
+                                <span><b>Acciones</b></span>
+                            </h6>
+                        </div>
+                        <div class="card-body card-scroll" style="padding: 0rem;" *ngIf="accionesByMenu != null && accionesByMenu.length > 0">
+                            <div id="acciones_permiso" *ngFor="let a of accionesByMenu; let i = index;">
+                                <li id="{{ a.funcionCodigo.detalleMenuFuncion }}" class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer;" *ngIf="a.estado == 1">
+                                    <label style="cursor:pointer;">{{ a.funcionCodigo.detalleMenuFuncion | titlecase }}</label>
+                                    <input id="checkbox_accion_permiso_{{i+1}}" type="checkbox" [(ngModel)]="a.checkeado" class="checkbox-rounded checkbox-inline" #checkA (click)=" onChangeCheckboxAccion(a, checkA.checked)">
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body text-center" *ngIf="accionesByMenu == null || accionesByMenu.length == 0">
+                        <label>No hay acciones registradas.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

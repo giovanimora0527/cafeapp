@@ -1,0 +1,239 @@
+<!-- Formulario de IPS -->
+<ngx-spinner type="square-jelly-box">
+    <p style="font-size: 20px; color: white"> {{ msjSpinner }}</p>
+</ngx-spinner>
+
+<form [formGroup]="relacionForm" novalidate id="form-perfil">
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Entidad</label>
+                <ng-container *ngIf="isCalledModal && !isSoloLectura">
+                    <select id="entidadIdIpsId" (change)="onChangeIpsCombo($event)" class="form-control select-border-fixed" formControlName="entidadIdIpsId" [ngClass]="{ 'is-invalid': submitted && f.entidadIdIpsId.errors }">                                                                       
+                        <option disabled [selected]="ipsSelected == null || ipsSelected.id == ''" value="">Seleccione una IPS </option>
+                        <option *ngFor="let ent of ips; let i=index;" [selected]="ipsSelected != null && ipsSelected.id == ent.id" value="{{ ent.id }}"> {{ ent.nombre }}</option>
+                    </select>
+                </ng-container>
+                <ng-container *ngIf="!isCalledModal && (isEdicion || isSoloLectura)">
+                    <input id="entidadIdIpsId" formControlName="entidadIdIpsId" disabled class="form-control" value=" {{ ipsComboSelected }}" [ngClass]="{ 'is-invalid': submitted && f.entidadIdIpsId.errors }" />
+                    <!-- <select id="entidadIdIpsId" disabled class="form-control select-border-fixed" formControlName="entidadIdIpsId" [ngClass]="{ 'is-invalid': submitted && f.entidadIdIpsId.errors }">  
+                        <option *ngFor="let ent of ips; let i=index;" value="{{ ent.id }}" [selected]="ipsSelected != null && ipsSelected.id == ent.id"> {{ ent.nombre }}</option>
+                    </select> -->
+                </ng-container>
+                <div *ngIf="submitted && f.entidadIdIpsId.errors" class="invalid-feedback ">
+                    <div *ngIf="f.entidadIdIpsId.errors[ 'required']">Campo obligatorio</div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6 "></div>
+    </div>
+    <div class="row ">
+        <div class="col col-md-6 ">
+            <div class="form-group ">
+                <label for="recipient-name " class="col-form-label">Nombres y Apellidos responsable:</label>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text " id="basic-addon1">
+                                  <span class="fa fa-id-card-o "></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="nombreResponsableIps" trim="blur" class="form-control" maxlength="255" type="text" formControlName="nombreResponsableIps" [ngClass]="{ 'is-invalid': submitted && f.nombreResponsableIps.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="nombreResponsableIps" disabled trim="blur" class="form-control" maxlength="255" onKeyDown="if(this.value.length==50 && event.keyCode!=8) return false;" type="text" formControlName="nombreResponsableIps" [ngClass]="{ 'is-invalid':submitted && f.nombreResponsableIps.errors }"
+                        />
+                    </ng-container>
+                    <div *ngIf="submitted && f.nombreResponsableIps.errors" class="invalid-feedback">
+                        <div *ngIf="f.nombreResponsableIps.errors['required']">Campo obligatorio</div>
+                        <div *ngIf="f.nombreResponsableIps.errors['maxLength']">La longitud máxima es de 255 caracteres.</div>
+                        <div *ngIf="f.nombreResponsableIps.errors['pattern']">Solo puede digitar letras mayúsculas y minúsculas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6 ">
+            <div class="form-group ">
+                <label for="recipient-name" class="col-form-label">Correo Electrónico:</label>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text " id="basic-addon1">
+                            <span class="ti-email " style="cursor: pointer;"></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="correoResponsableIps" disabled trim="blur" class="form-control" maxlength="255" type="text" formControlName="correoResponsableIps" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableIps.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="correoResponsableIps" trim="blur" class="form-control" maxlength="255" type="text" formControlName="correoResponsableIps" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableIps.errors }" />
+                    </ng-container>
+                    <div *ngIf="submitted && f.correoResponsableIps.errors" class="invalid-feedback">
+                        <div *ngIf="f.correoResponsableIps.errors[ 'required']">Campo obligatorio</div>
+                        <div *ngIf="f.correoResponsableIps.errors[ 'pattern']">Correo no válido. Por favor verifique.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Nombre y Apellidos segundo responsable:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                                      <span class="fa fa-id-card-o"></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="nombreResponsableIps2" trim="blur" class="form-control" maxlength="255" onKeyDown="if(this.value.length==50 && event.keyCode!=8) return false;" type="text " formControlName="nombreResponsableIps2" [ngClass]="{ 'is-invalid':
+                            submitted && f.nombreResponsableIps2.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="nombreResponsableIps2" disabled trim="blur" class="form-control" maxlength="255" onKeyDown="if(this.value.length==50 && event.keyCode!=8) return false;" type="text " formControlName="nombreResponsableIps2" [ngClass]="{ 'is-invalid':
+                            submitted && f.nombreResponsableIps2.errors }" />
+                    </ng-container>
+                    <div *ngIf="submitted && f.nombreResponsableIps2.errors" class="invalid-feedback">
+                        <div *ngIf="f.nombreResponsableIps2.errors[ 'maxLength']">La longitud máxima es de 255 caracteres.</div>
+                        <div *ngIf="f.nombreResponsableIps2.errors[ 'pattern']">Solo puede digitar letras mayúsculas y minúsculas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6 ">
+            <div class="form-group ">
+                <label for="recipient-name" class="col-form-label">Correo Electrónico segundo responsable:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                                <span class="ti-email" style="cursor: pointer;"></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="correoResponsableIps2" trim="blur" class="form-control" maxlength="255" type="text" formControlName="correoResponsableIps2" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableIps2.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="correoResponsableIps2" disabled trim="blur" class="form-control" maxlength="255" type="text" formControlName="correoResponsableIps2" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableIps2.errors }" />
+                    </ng-container>
+                    <div *ngIf="submitted && f.correoResponsableIps2.errors" class="invalid-feedback">
+                        <div *ngIf="f.correoResponsableIps2.errors[ 'pattern']">Correo no válido. Por favor verifique.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col col-md-12">
+            <h4> {{ entidadNombre }}</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="recipient-name " class="col-form-label">Nombres y Apellidos ERPS:</label>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                                      <span class="fa fa-id-card-o"></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="nombreResponsableErps" trim="blur" class="form-control" maxlength="255 " type="text" formControlName="nombreResponsableErps" [ngClass]="{ 'is-invalid': submitted && f.nombreResponsableErps.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="nombreResponsableErps" disabled trim="blur" class="form-control" maxlength="255 " type="text" formControlName="nombreResponsableErps" [ngClass]="{ 'is-invalid': submitted && f.nombreResponsableErps.errors }" />
+                    </ng-container>
+                    <div *ngIf="submitted && f.nombreResponsableErps.errors" class="invalid-feedback">
+                        <div *ngIf="f.nombreResponsableErps.errors[ 'required']">Campo obligatorio</div>
+                        <div *ngIf="f.nombreResponsableErps.errors[ 'maxLength']">La longitud máxima es de 255 caracteres.</div>
+                        <div *ngIf="f.nombreResponsableErps.errors[ 'pattern']">Solo puede digitar letras mayúsculas y minúsculas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6 ">
+            <div class="form-group ">
+                <label for="recipient-name " class="col-form-label ">Correo Electrónico ERPS:</label>
+                <div class="input-group mb-3 ">
+                    <div class="input-group-prepend ">
+                        <span class="input-group-text " id="basic-addon1 ">
+                                <span class="ti-email "></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="correoResponsableErps" trim="blur" class="form-control" maxlength="255" type="text" formControlName="correoResponsableErps" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableErps.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="correoResponsableErps" disabled trim="blur" class="form-control" maxlength="255" type="text" formControlName="correoResponsableErps" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableErps.errors }" />
+                    </ng-container>
+                    <div *ngIf="submitted && f.correoResponsableErps.errors" class="invalid-feedback">
+                        <div *ngIf="f.correoResponsableErps.errors[ 'required']">Campo obligatorio</div>
+                        <div *ngIf="f.correoResponsableErps.errors[ 'pattern']">Correo no válido. Por favor verifique.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Nombre y Apellidos segundo responsable ERPS:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                                          <span class="fa fa-id-card-o "></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="nombreResponsableErps2" trim="blur" class="form-control" maxlength="255" type="text" formControlName="nombreResponsableErps2" [ngClass]="{ 'is-invalid': submitted && f.nombreResponsableErps2.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="nombreResponsableErps2" disabled trim="blur" class="form-control" maxlength="255" type="text" formControlName="nombreResponsableErps2" [ngClass]="{ 'is-invalid': submitted && f.nombreResponsableErps2.errors }" />
+                    </ng-container>
+                    <div *ngIf="submitted && f.nombreResponsableErps2.errors" class="invalid-feedback">
+                        <div *ngIf="f.nombreResponsableErps2.errors[ 'maxLength']">La longitud máxima es de 255 caracteres.</div>
+                        <div *ngIf="f.nombreResponsableErps2.errors[ 'pattern']">Solo puede digitar letras mayúsculas y minúsculas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-md-6">
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Correo Electrónico segundo responsable ERPS:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                                    <span class="ti-email"></span>
+                        </span>
+                    </div>
+                    <ng-container *ngIf="isEdicion">
+                        <input id="correoResponsableErps2" trim="blur" class="form-control" maxlength="255 " type="text" formControlName="correoResponsableErps2" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableErps2.errors }" />
+                    </ng-container>
+                    <ng-container *ngIf="isSoloLectura">
+                        <input id="correoResponsableErps2" disabled trim="blur" class="form-control" maxlength="255 " type="text" formControlName="correoResponsableErps2" [ngClass]="{ 'is-invalid': submitted && f.correoResponsableErps2.errors }" />
+                    </ng-container>
+
+                    <div *ngIf="submitted && f.correoResponsableErps2.errors" class="invalid-feedback">
+                        <div *ngIf="f.correoResponsableErps2.errors[ 'pattern']">Correo no válido. Por favor verifique.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="!isCalledModal">
+        <div class="col col-md-12 text-center">
+            <div class="mainButtons">
+                <button id="btn_guardar_cups" *ngIf="isEdicion && !isSoloLectura" type="button" class="btn btn-outline-primary mb-3" style="margin-right: 20px;" (click)="guardarRelacionConfiguracion()">
+                                <i class="fa fa-save "></i>
+                                <span> Guardar</span>
+                </button>
+                <button id="btn_cancelar_guardar" type="button" class="btn btn-outline-secondary mb-3" (click)="cancelar()">
+                            <i class="fa fa-times text-danger"></i>
+                            <span> Cancelar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

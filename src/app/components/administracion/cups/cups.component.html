@@ -1,0 +1,259 @@
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <ul class="breadcrumbs pull-left">
+                    <li><span><a [routerLink]="['/home']">Parametrizar</a></span></li>
+                    <li><span>{{ title }}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner type="square-jelly-box">
+    <p style="font-size: 20px; color: white">{{ msjSpinner }}</p>
+</ngx-spinner>
+<div class="main-content-inner">
+    <div class="sales-report-area mt-2 mb-5">
+        <div class="row">
+            <div class="col col-md-8">
+                <div class="row">
+                    <div class="col col-md-12">
+                        <div class="mainButtons">
+                            <a id="btn_crear_cups" *ngIf="hasPermissionsCreate" href="#" class="btn btn-primary" data-toggle="modal" data-target="#datos-cups" (click)="abrirModalCups()">
+                                <i class="fa fa-plus"></i> Crear
+                            </a>
+                            <a id="btn_importar_cups" *ngIf="hasPermissionsUpload" href="#" class="btn btn-primary" data-toggle="modal" data-target="#file-cups">
+                                <i class="fa fa-upload"></i> Importar
+                            </a>
+                            <div class="linkSecundario align-items-center" *ngIf="hasPermissionsUpload">
+                                <i class="fa fa-arrow-circle-right"></i>
+                                <a id="btn_historico_cups" [routerLink]="['/home', {outlets: {'content': [ 'historico-cups' ]}}]">
+                                    Histórico de datos no importados
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="search-box pull-right">
+                    <form autocomplete="off">
+                        <input id="buscar_cups" #search maxlength="255" type="text" name="search" placeholder="Buscar CUPS" required (keyup)="filterBy(search.value)">
+                        <i class="ti-search"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col col-md-6">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Norma:</span>
+                    </div>
+                    <select id="select-combo-norma-cups" class="form-control" #norma (change)="selectNorma($event)">
+                        <option disabled [selected]="normaSelectedModal == null" value="null">Seleccione una norma</option> 
+                        <ng-container *ngFor="let n of normas; let i of index;">
+                            <option [value]="n.id" [selected]="n.id == normaSelected.id">{{ n.nombre }}</option>
+                        </ng-container>                    
+                        
+                    </select>
+                </div>
+            </div>
+            <div class="col col-md-6 text-right" *ngIf="resultados != null && resultados.length > 0">
+                <label>Total de registros encontrados:  {{ resultados.length }}</label>
+            </div>
+        </div>
+        <br>
+        <div class="row removeHeight">
+            <div class="col col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="single-table">
+                            <div class="table-responsive table-wrapper-scroll-y">
+                                <table datatable class="table table-hover progress-table text-justify table-striped" [mfData]="resultados" #mf="mfDataTable" [mfActivePage]="1" [mfRowsOnPage]="20">
+                                    <thead>
+                                        <th>
+                                            <mfDefaultSorter by="codigo">CUPS</mfDefaultSorter>
+                                        </th>
+                                        <th class="text-center">
+                                            <mfDefaultSorter by="detalle">Descripción</mfDefaultSorter>
+                                        </th>
+                                        <th class="text-center">
+                                            <mfDefaultSorter by="fechaInicioVigencia">Fecha Inicio Vigencia</mfDefaultSorter>
+                                        </th>
+                                        <th class="text-center" *ngIf="banderaOpciones && hasPermissionsUpdate">
+                                            <b>Opciones</b>
+                                        </th>
+                                    </thead>
+                                    <tbody *ngIf="resultados && resultados.length; else noCups">
+                                        <tr *ngFor="let c of mf.data">
+                                            <td>
+                                                {{ c.codigo }}
+                                            </td>
+                                            <td class="alinear-col-left">
+                                                {{ c.detalle }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ c.fechaInicioVigencia | date:'dd/MM/yyyy' }}
+                                            </td>
+                                            <td class="text-center" *ngIf="banderaOpciones && hasPermissionsUpdate">
+                                                <ul class="d-flex justify-content-lg-center mb-1" *ngIf="c.norma == idEntidad">
+                                                    <li>
+                                                        <a href="javascript:void(0)" class="text-primary" id="{{ 'btn_opciones_' + c.codigo }}" data-toggle="modal" data-target="#datos-cups" placement="right" ngbTooltip="Editar" (click)="abrirModalCups(c)">
+                                                            <i class="ti-clipboard"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <ng-template #noCups>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" colspan="4">
+                                                    <label>No hay CUPS registrados</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </ng-template>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5">
+                                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal crear CUPS-->
+<div class="modal fade" id="datos-cups">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalCups">{{ titleModalCups }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-btn-modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="cupsForm" id="cupsForm">
+                    <div class="row row-padding">
+                        <div class="col col-md-6">
+                            <label class="col-form-label">Fecha Inicio de Vigencia:</label>
+                            <my-date-picker id="fecha_inicio_vigencia_cups" class="mdp form-control" formControlName="fechaInicioVigencia" locale="es" [options]="datePickerOptions" [ngClass]="{ 'is-invalid': submitted && (f.fechaInicioVigencia.errors) }">
+                            </my-date-picker>
+                            <div class="invalid-feedback">
+                                <div *ngIf="f.fechaInicioVigencia.errors">
+                                    <div *ngIf="f.fechaInicioVigencia.errors['required']">Campo obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-md-6">
+                            <label class="col-form-label">Código:</label>
+                            <input id="codigo_cups" trim="blur" class="form-control" type="text" maxlength="6" formControlName="codigo" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" />
+                            <div *ngIf="f.codigo.errors" class="invalid-feedback">
+                                <div *ngIf="f.codigo.errors['required']; else formatoCodigoBlock">Campo obligatorio</div>
+                            </div>
+                            <ng-template #formatoCodigoBlock>
+                                <div *ngIf="f.codigo.errors['pattern']">El campo debe ser alfanumérico de máximo 6 caracteres</div>
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="row row-padding">
+                        <div class="col col-md-12">
+                            <label class="col-form-label">Descripción:</label>
+                            <textarea id="descripcion_cups" trim="blur" class="form-control" type="text" rows="3" maxlength="255" formControlName="detalle" [ngClass]="{ 'is-invalid': submitted && f.detalle.errors }"></textarea>
+                            <div *ngIf="f.detalle.errors" class="invalid-feedback">
+                                <div *ngIf="f.detalle.errors['required']">Campo obligatorio</div>
+                                <div *ngIf="f.detalle.errors['maxlength']">Longitud máxima 255 caracteres</div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer text-center">
+                <button id="btn_guardar_cups" type="button" class="btn btn-outline-primary mb-3" (click)="guardarCups()">
+                    <i class="fa fa-save"></i>
+                    <span> Guardar</span>
+                </button>
+                <button id="btn_cancelar_guardar" type="button" class="btn btn-outline-secondary mb-3" (click)="cancelar()">
+                    <i class="fa fa-times text-danger"></i>
+                    <span> Cancelar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal importar archivo CUPS -->
+<div class="modal fade show" id="file-cups">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalImportarCups">{{ titleModal }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-btn-modal_carga" (click)="limpiarFile()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group px-5 mt-3">
+                            <h6 class="mb-2"><b>Norma</b></h6>
+                            <div class="box">
+                                <select id="select-normas-input-file" class="form-control" #norma (change)="onSelectNormaModal($event)">
+                                    <option disabled [selected]="normaSelectedModal == null">Seleccione una norma</option>
+                                    <ng-container *ngFor="let n of normas; let i of index;">
+                                        <option value="{{ n.id }}" *ngIf="n.id != 0">{{ n.nombre}}</option>
+                                    </ng-container>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row boxUpfile">
+                    <div class="col-md-auto">
+                    </div>
+                    <div class="col-md-auto">
+                        <div class="box col-md-auto">
+                            <div class="upload-btn-wrapper">
+                                <button class="btn btnUpload">
+                                  <i class="fa fa-file-o"></i> <span></span> Seleccionar archivo...
+                                </button>
+                                <input type="file" class="" name="file-input" #fileInput [attr.accept]="'.' + formatos.join(',.')" id="file_input_cups" (change)="onFileChange($event)" />
+                            </div>
+                            <div>
+                                <label>{{ fileTxt }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-auto">
+                        <ul class="formatos">
+                            <li *ngFor="let formato of formatos">Formatos permitidos: <b>{{ formato | uppercase }}</b></li>
+                            <li>Si desea ver un formato de ejemplo descárguelo<button id="link_descargar_csv" type="button" class="btn btn-link" (click)="descargaCsv()">AQUÍ</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <button id="btn_guardar_menu" type="button" class="btn btn-outline-primary mb-3" (click)="importarCups()">
+          <i class="fa fa-upload"></i>
+          <span> Importar</span>
+        </button>
+            </div>
+        </div>
+    </div>
+</div>

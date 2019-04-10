@@ -1,0 +1,65 @@
+<!-- login area start -->
+<div class="login-s2">
+    <div class="container-fluid">
+        <div class="login-box">
+            <form [formGroup]="passForm" autocomplete="off">
+                <div class="login-form-head">
+                    <h5>Cambiar Contraseña</h5>
+                </div>
+                <div class="login-form-body">
+                    <div class="form-gp">
+                        <input type="password" trim="blur" id="actual" maxlength="255" placeholder="Contraseña Actual" formControlName="passAnt" [ngClass]="{ 'is-invalid': submitted && f.passAnt.errors }">
+                        <i class="ti-user"></i>
+                        <br>
+                        <span *ngIf="submitted && f.passAnt.errors" class="invalid-feedback-login text-right">
+                                <div *ngIf="f.passAnt.errors['required']">
+                                    Campo obligatorio 
+                                </div>                                
+                                <div *ngIf="f.passAnt.errors['minlength']">
+                                        Por favor ingrese al menos 8 caracteres
+                                </div>                               
+                        </span>
+                    </div>
+                    <div class="form-gp">
+                        <input type="password" trim="blur" placeholder="Nueva Contraseña" maxlength="255" id="contrasena" formControlName="passNew" [ngClass]="{ 'is-invalid': submitted && f.passNew.errors }">
+                        <i class="ti-lock"></i>
+                        <span *ngIf="submitted && f.passNew.errors" class="invalid-feedback-login text-right">
+                                <div *ngIf="f.passNew.errors['required']" >
+                                        Campo obligatorio
+                                </div>
+                                <div *ngIf="f.passNew.errors['minlength']" style="color:'red'">
+                                        Por favor ingrese al menos 8 caracteres
+                                </div>
+                                <div *ngIf="f.passNew.errors['pattern']" style="color:'red'">
+                                        Debe contener al menos un número, una letra minúscula, una mayúscula y un simbolo
+                                </div>                               
+                        </span>
+                    </div>
+
+                    <div class="form-gp">
+                        <input type="password" trim="blur" placeholder="Confirmar Contraseña" maxlength="255" id="confirmar" formControlName="passConf" [ngClass]="{ 'is-invalid': submitted && f.passConf.errors }">
+                        <i class="ti-lock"></i>
+                        <span *ngIf="submitted && f.passConf.errors" class="invalid-feedback-login text-right">
+                                <div *ngIf="f.passConf.errors['required']">
+                                    Campo obligatorio 
+                                </div>                                
+                                <div *ngIf="f.passConf.errors['minlength']">
+                                        Por favor ingrese al menos 8 caracteres
+                                </div> 
+                                <div *ngIf="f.passConf.errors['pattern']">
+                                        Debe contener al menos un número, una letra minúscula, una mayúscula y un simbolo
+                                </div>                              
+                        </span>
+                    </div>
+
+                    <div class="submit-btn-area">
+                        <button id="form_submit" type="submit" (click)="cambiarContrasena()">
+                            Cambiar <i class="ti-arrow-right"></i>
+                         </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- login area end -->

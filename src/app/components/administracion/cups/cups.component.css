@@ -1,0 +1,21 @@
+a {
+    margin-right: 15px !important;
+}
+
+.alinear-col-left {
+    padding: .65rem 0.65rem 0.40rem!important;
+    font-size: 0.80rem!important;
+    text-align: left !important;
+}
+
+.alinear-col-center {
+    padding: .65rem 0.65rem 0.40rem!important;
+    font-size: 0.80rem!important;
+    text-align: center !important;
+}
+
+.alinear-col-right {
+    padding: .65rem 0.65rem 0.40rem!important;
+    font-size: 0.80rem!important;
+    text-align: right !important;
+}

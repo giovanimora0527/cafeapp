@@ -1,0 +1,237 @@
+<ngx-spinner type="square-jelly-box">
+    <p style="font-size: 20px; color: white">Guardando</p>
+</ngx-spinner>
+<!-- Contenido Principal -->
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <ul class="breadcrumbs pull-left">
+                    <li><span><a [routerLink]="['/home']">Parametrizar</a></span></li>
+                    <li><span>{{title | titlecase}}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content-inner">
+    <div class="sales-report-area mt-2 mb-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mainButtons">
+                    <a id="crear_menus_modal" *ngIf="hasPermissionsCreate" href="javascript:void(0)" class="btn btn-rounded btn-primary mb-3" data-toggle="modal" data-target="#addMenu" (click)="abrirNewMenu()">
+                        <i class="fa fa-plus"></i> Crear
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row removeHeight">
+            <div class="col-md-4">
+                <div class="card p-0 mb-0 bg-white h-100">
+                    <div class="card-header text-center">
+                        <label style="font-size: 14px; color:#212529; font-family: poppins, sans-serif !important;"><b>Menú Raíz</b></label>
+                    </div>
+                    <div class="card-body card-scroll mb--10 " style="padding: 0rem;" *ngIf="menus != null && menus.length> 0">
+                        <ul class="list-group list-group-flush" *ngFor="let m of menus; let i = index;">
+                            <li id="{{ m.nombreMenu }}" class="list-group-item d-flex justify-content-between" style="cursor:pointer;" (click)="cargarSubmenus(m)">
+                                {{ m.nombreMenu }}
+                                <div class="notification-area pull-right pt--0">
+                                    <a id="editar_menu_{{i+1}}" *ngIf="hasPermissionsUpdate" href="javascript:void(0)" placement="left" ngbTooltip="Editar" class="edit settings-btn" data-toggle="modal" data-target="#addMenu" (click)="editMenu(m)">
+                                        <i class="ti-clipboard"></i>
+                                    </a>
+                                    <a id="eliminar_menu_{{i+1}}" *ngIf="hasPermissionsDelete" href="javascript:void(0)" placement="left" ngbTooltip="Eliminar" class="trash settings-btn" (click)="removeMenu(m)">
+                                        <i class="ti-trash text-danger"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body text-center" *ngIf="menus == null || menus.length == 0">
+                        <label>No hay menús registrados.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="card p-0 mb-0 bg-white h-100">
+                    <div class="card-header text-center">
+                        <label style="font-size: 14px; color:#212529; font-family: poppins, sans-serif !important;"><b>Submenú</b></label>
+                    </div>
+                    <div class="card-body card-scroll" style="padding: 0rem;" *ngIf="submenus != null && submenus.length > 0">
+                        <ul class="list-group list-group-flush" *ngFor="let m of submenus; let i = index;">
+                            <li id="{{ m.nombreMenu }}" class="list-group-item" style="cursor: pointer;" (click)="cargarAccionesMenu(m)">
+                                {{ m.nombreMenu }}
+                                <div class="notification-area pull-right">
+                                    <a id="editar_submenu_{{i+1}}" *ngIf="hasPermissionsUpdate" href="javascript:void(0)" placement="left" ngbTooltip="Editar" class="edit settings-btn" data-toggle="modal" data-target="#addMenu" (click)="editMenu(m); cargarAccionesMenu(m)">
+                                        <i class="ti-clipboard"></i>
+                                    </a>
+                                    <a id="eliminar_submenu_{{i+1}}" *ngIf="hasPermissionsDelete" href="javascript:void(0)" placement="left" ngbTooltip="Eliminar" class="trash settings-btn" (click)="removeMenu(m)">
+                                        <i class="ti-trash"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body text-center" *ngIf="submenus == null">
+                        <label>No hay submenús registrados.</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-4">
+                <div class="card p-0 mb-0 bg-white h-100">
+                    <div class="card-header text-center">
+                        <label style="font-size: 14px; color:#212529; font-family: poppins, sans-serif !important;"><b>Acciones</b></label>
+                    </div>
+                    <div class="card-body card-scroll" style="padding: 0rem;" *ngIf="accionesActivas && accionesByMenu.length > 0">
+                        <ng-container *ngFor="let a of accionesByMenu; let i = index;">
+                            <ul class="list-group list-group-flush" *ngIf="a.estado == 1">
+                                <li class="list-group-item" style="cursor: pointer;">
+                                    {{ a.funcionCodigo.detalleMenuFuncion }}
+                                </li>
+                            </ul>
+                        </ng-container>
+                    </div>
+                    <div class="card-body text-center" *ngIf="!accionesActivas || accionesByMenu == null || accionesByMenu.length == 0">
+                        <label>No hay acciones registradas.</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal crear menú-->
+<div class="modal fade" id="addMenu">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ titleModal }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close-btn-modal" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="menuForm" id="menu1">
+                    <div class="row row-padding">
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Estado:</label>
+                                <select class="form-control select-border-fixed" id="estado_menu" #estadoMenuNuevo formControlName="estado" [ngClass]="{ 'is-invalid': submitted && f.estado.errors }">                                                                       
+                                    <option disabled selected value="null" selected>Seleccione el estado ...</option>
+                                    <option *ngFor="let edo of estados" value="{{edo.id}}">{{ edo.valor }}</option> 
+                                </select>
+                                <div *ngIf="submitted && f.estado.errors" class="invalid-feedback">
+                                    <div *ngIf="f.estado.errors['required']">Campo obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Padre:</label>
+                                <select id="padre_menu" class="form-control select-border-fixed" #padreMenuNuevo formControlName="padre" [ngClass]="{ 'is-invalid': submitted && f.padre.errors }">                                    
+                                    <option disabled selected value="null">Seleccione el padre ...</option>
+                                    <option value="---">RAÍZ</option>
+                                    <ng-container *ngFor="let m of menus">                                      
+                                       <option *ngIf="m.estado != 0 && (menuSelected == null || m.nombreMenu != menuSelected.nombreMenu)"  value="{{ m.codigo }}">{{m.nombreMenu}}</option>
+                                    </ng-container>  
+                                </select>
+                                <div *ngIf="submitted && f.padre.errors" class="invalid-feedback">
+                                    <div *ngIf="f.padre.errors['required']">Campo obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-padding">
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Orden:</label>
+                                <input id="orden_menu" trim="blur" class="form-control" type="text" #ordenMenuNuevo formControlName="orden" [ngClass]="{ 'is-invalid': submitted && f.orden.errors }" />
+                                <div *ngIf="submitted && f.orden.errors" class="invalid-feedback">
+                                    <div *ngIf="f.orden.errors['required']">Campo obligatorio</div>
+                                    <div *ngIf="f.orden.errors['pattern']">Es campo solo es numérico</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Código:</label>
+                                <input id="codigo_menu" trim="blur" class="form-control" maxLength="5" placeholder="Escriba un código" #codigoMenuNuevo formControlName="codigo" [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }" />
+                                <div *ngIf="submitted && f.codigo.errors" class="invalid-feedback">
+                                    <div *ngIf="f.codigo.errors['required']">Campo obligatorio</div>
+                                    <div *ngIf="f.codigo.errors['maxLength']">Longitud máxima 5 caracteres</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-padding">
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Ruta:</label>
+                                <input id="ruta_menu" trim="blur" class="form-control" maxlength="500" type="text" #rutaMenuNuevo formControlName="ruta" [ngClass]="{ 'is-invalid': submitted && f.ruta.errors }" />
+                                <div *ngIf="submitted && f.ruta.errors" class="invalid-feedback">
+                                    <div *ngIf="f.ruta.errors['required']">Campo obligatorio</div>
+                                    <div *ngIf="f.ruta.errors['maxLength']">Longitud máxima 500 caracteres</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-md-6">
+                            <div class="form-group iconSelect">
+                                <label for="recipient-name" class="col-form-label">Icono:</label>
+                                <select id="icono_menu" class="form-control" formControlName="icono" [ngClass]="{ 'is-invalid': submitted && f.icono.errors }">
+                                        <option selected disabled value="null">Seleccione un ícono</option>    
+                                        <option *ngFor="let icon of iconos" value="{{icon['value']}}">
+                                            <span innerHTML="{{ icon['code'] }}"></span> &nbsp; {{ icon["nombre"] }}
+                                        </option>
+                                    </select>
+                                <div *ngIf="submitted && f.icono.errors" class="invalid-feedback">
+                                    <div *ngIf="f.icono.errors['required']">Campo obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-padding">
+                        <div class="col col-md-12">
+                            <label for="recipient-name" class="col-form-label">Nombre del menú:</label>
+                            <input id="nombre_menu" trim="blur" class="form-control" placeholder="Escriba un nombre para el menú" #nombreMenuNuevo formControlName="nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" />
+                            <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+                                <div *ngIf="f.nombre.errors['required']">Campo obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-padding">
+                        <div class="col col-md-12">
+                            <label for="recipient-name" class="col-form-label">Descripción:</label>
+                            <textarea id="descripcion_menu" trim="blur" class="form-control" rows="3" #descripcionMenuNuevo formControlName="descripcion" [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }">                                                
+                            </textarea>
+                            <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
+                                <div *ngIf="f.descripcion.errors['required']">Campo obligatorio</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-padding" *ngIf="mostrarFuncion">
+                        <div class="col col-md-12">
+                            <label for="recipient-name" class="col-form-label">Funciones:</label>
+                            <ul class="list-group" id="acciones_menu">
+                                <li class="list-group-item d-flex justify-content-between align-items-center" id="{{ accion.funcionCodigo }}" *ngFor="let accion of acciones; let j = index;" (click)="checkearItem(accion.funcionCodigo)" style="cursor: pointer;">
+                                    {{ accion.detalleMenuFuncion }}
+                                    <span class="badge badge-primary badge-pill" *ngIf="accion.checkeado == 1">
+                                        <i class="fa fa-check"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-center">
+                <button id="btn_guardar_menu" type="button" class="btn btn-outline-primary mb-3" (click)="guardarMenuNuevo()">
+                            <i class="fa fa-save"></i>
+                            <span> Guardar</span>
+                        </button>
+                <button id="btn_cancelar_guardar" type="button" class="btn btn-outline-secondary mb-3" (click)="cancelButtonAction(menuForm)">
+                    <i class="fa fa-times text-danger"></i>
+                    <span> Cancelar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

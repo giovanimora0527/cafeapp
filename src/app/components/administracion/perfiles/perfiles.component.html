@@ -1,0 +1,197 @@
+<!-- Contenido Principal -->
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <ul class="breadcrumbs pull-left">
+                    <li><span><a [routerLink]="['/home']">Parametrizar</a></span></li>
+                    <li><span>{{title | titlecase}}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-content-inner">
+    <div class="sales-report-area mt-2 mb-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mainButtons">
+                    <a id="crear_perfil" *ngIf="hasPermissionsCreate" href="javascript:void(0)" class="btn btn-primary" data-toggle="modal" data-target="#modal" (click)="abrirNuevoPerfil()">
+                        <i class="fa fa-plus"></i> Crear
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="search-box pull-right">
+                    <form (keyup.enter)="filterBy(search.value)" autocomplete="off">
+                        <input id="buscar_perfil" #search type="text" maxlength="255" name="search" placeholder="Buscar perfil" required (keyup)="validarSearch(search.value)">
+                        <i class="ti-search"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row removeHeight">
+            <div class="col col-md-12 pt-2 pb-3">
+                <label class="pull-right">Total de registros encontrados:  {{perfiles.length}}</label>
+            </div>
+        </div>
+        <div class="row removeHeight">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="single-table">
+                            <div class="table table-condensed table-responsive">
+                                <table class="table text-center table-hover table-striped" [mfData]="perfiles" #mf="mfDataTable" [mfRowsOnPage]="20">
+                                    <thead>
+                                        <tr>
+                                            <th style="cursor:pointer;">
+                                                <mfDefaultSorter by="nombrePerfil">Perfil</mfDefaultSorter>
+                                            </th>
+                                            <th scope="col" style="cursor:pointer;">
+                                                <mfDefaultSorter by="tipoBase">Tipo</mfDefaultSorter>
+                                            </th>
+                                            <th scope="col" style="cursor:pointer;" class="text-center">
+                                                <mfDefaultSorter by="esSuper">Super Admin</mfDefaultSorter>
+                                            </th>
+                                            <th scope="col" style="cursor:pointer;" class="text-center">
+                                                <mfDefaultSorter by="esAdmin">Administrador</mfDefaultSorter>
+                                            </th>
+                                            <th scope="col" style="cursor:pointer;" class="text-center">
+                                                <mfDefaultSorter by="estado">Activo</mfDefaultSorter>
+                                            </th>
+                                            <th scope="col" class="text-center" *ngIf="hasPermissionsCreate || hasPermissionsDelete || hasPermissionsUpdate">
+                                                <b>Opciones</b>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="perfiles.length > 0" class="text-capitalize">
+                                        <tr *ngFor="let perfil of mf.data; let i= index">
+                                            <td scope="row">{{ perfil.nombrePerfil }}</td>
+                                            <td>
+                                                <label *ngIf="perfil.esBase && perfil.tipoBase == '1'">Base ERPS</label>
+                                                <label *ngIf="perfil.esBase && perfil.tipoBase == '2'">Base IPS</label>
+                                                <label *ngIf="perfil.tipoBase == null">N/A</label>
+                                            </td>
+                                            <td class="text-center">
+                                                <i class="ti-check-box" *ngIf="perfil.esSuper"></i>
+                                                <i class="ti-na" *ngIf="!perfil.esSuper"></i>
+                                            </td>
+                                            <td class="text-center">
+                                                <i class="ti-check-box" *ngIf="perfil.esAdmin"></i>
+                                                <i class="ti-na" *ngIf="!perfil.esAdmin"></i>
+                                            </td>
+                                            <td class="text-center">
+                                                <i class="ti-check-box" *ngIf="perfil.estado == 1"></i>
+                                                <i class="ti-na" *ngIf="perfil.estado != 1"></i>
+                                            </td>
+                                            <td class="text-center" *ngIf="hasPermissionsCreate || hasPermissionsDelete || hasPermissionsUpdate">
+                                                <div class="notification-area pull-center">
+                                                    <a id="editar_perfil_{{i+1}}" *ngIf="hasPermissionsUpdate" href="javascript:void(0)" placement="left" ngbTooltip="Editar Perfil" class="edit settings-btn" data-toggle="modal" data-target="#modal" (click)="abrirEdicion(perfil)">
+                                                        <i class="ti-clipboard"></i>
+                                                    </a>
+                                                    <a id="confif_perfil_permiso_{{i+1}}" *ngIf="hasPermissionsUpdate" href="javascript:void(0)" placement="left" ngbTooltip="Guardar Permisos" class="edit settings-btn" [routerLink]="['/home', {outlets: {'content': [ 'permisos', perfil.id ]}}]">
+                                                        <i class="ti-settings"></i>
+                                                    </a>
+                                                    <a id="eliminar_perfil_{{i+1}}" *ngIf="hasPermissionsDelete" href="javascript:void(0)" placement="left" ngbTooltip="Eliminar" class="trash settings-btn" (click)="eliminarPerfil(perfil)">
+                                                        <i class="ti-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="perfiles.length == 0">
+                                        <tr>
+                                            <td colspan="6" class="text-center">
+                                                <label>No se encuentran perfiles registrados en el sistema</label>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot *ngIf="perfiles != null && perfiles.length > 0">
+                                        <tr>
+                                            <td colspan="6">
+                                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-spinner class="container">
+    <p style="size: 'medium'; font-size: 20px; color: white">Guardando</p>
+</ngx-spinner>
+
+<!-- Modal -->
+<div class="modal fade" id="modal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ titleModal }}</h5>
+                <button type="button" class="close" data-dismiss="modal" (click)="Cancelar()" id="close-btn-modal"><span>&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="perfilForm" id="form-perfil">
+                    <div class="row">
+                        <div class="col col-md-6">
+                            <div class="custom-control custom-checkbox">
+                                <input id="check_admin" type="checkbox" class="custom-control-input" #check formControlName="isAdmin" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Administrador</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input id="check_base" type="checkbox" class="custom-control-input" #check2 formControlName="isBase" id="customCheck2" (change)="selectedBase()">
+                                <label class="custom-control-label" for="customCheck2">Base</label>
+                            </div>
+                            <div class="col col-md-12" *ngIf="isSelectedBase">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Seleccione el tipo base:</label>
+                                    <select id="select_tipo_perfil" class="form-control select-border-fixed" #tipoBasePerfil formControlName="tipoBase">                                                                       
+                                        <option disabled value="null" selected>Seleccione el tipo ...</option>
+                                        <option *ngFor="let tipo of tiposPerfiles" value="{{tipo.id}}">{{ tipo.descripcion }}</option> 
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Estado: </label>
+                                <select id="select_estado_perfil" class="form-control select-border-fixed" #estadoPerfil formControlName="estado" [ngClass]="{ 'is-invalid': submitted && f.estado.errors }">                                                                       
+                                    <option disabled value="null" selected>Seleccione el estado ...</option>
+                                    <option *ngFor="let edo of estados" value="{{edo.id}}">{{ edo.valor }}</option> 
+                                </select>
+                                <div *ngIf="submitted && f.estado.errors" class="invalid-feedback">
+                                    <div *ngIf="f.estado.errors['required']">Campo obligatorio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-md-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Nombre del Perfil:</label>
+                                <input id="nombre_perfil" trim="blur" maxlength="255" class="form-control" #nombre formControlName="nombrePerfil" required [ngClass]="{ 'is-invalid': submitted && f.nombrePerfil.errors }" />
+                                <div *ngIf="submitted && f.nombrePerfil.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nombrePerfil.errors['required']">Campo obligatorio</div>
+                                    <div *ngIf="f.nombrePerfil.errors['maxLength']">El tamaño máximo del capo es de 255 carácteres.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn_guardar_perfil" type="button" class="btn btn-outline-primary mb-3" (click)="guardarPerfil(perfilForm)">
+                    <i class="fa fa-save"></i> <span> </span> Guardar
+                </button>
+                <button id="btn_cancelar_guardar_perfil" type="button" class="btn btn-outline-secondary mb-3" (click)="cancelBtnAction(perfilForm)">
+                        <i class="fa fa-times text-danger"></i> <span> </span> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

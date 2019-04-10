@@ -28,19 +28,8 @@ import { ForgotPasswordComponent } from './components/autenticacion/forgot-passw
 import { PermisosComponent } from './components/administracion/permisos/permisos.component';
 import { CambiarContrasenaComponent } from './components/autenticacion/cambiar-contrasena/cambiar-contrasena.component';
 import { TipoDocumentosComponent } from './components/administracion/tipo-documentos/tipo-documentos.component';
-import { TipologiasComponent } from './components/administracion/tipologias/tipologias.component';
-import { GestionarEpsIpsComponent } from './components/administracion/erps-ips/gestionar-eps-ips/gestionar-eps-ips.component';
-import { ServiciosmecanismopagoComponent } from './components/administracion/serviciosmecanismopago/serviciosmecanismopago.component';
-import { GlosasComponent } from './components/administracion/glosas/glosas.component';
-import { CupsComponent } from './components/administracion/cups/cups.component';
-import { CieComponent } from './components/administracion/cie/cie.component';
-import { HistoricoComponent } from './components/administracion/cups/historico/historico.component';
-import { CumsComponent } from './components/administracion/cums/cums.component';
-import { HistoricocumsComponent} from './components/administracion/cums/historicocums/historicocums.component';
-import { HistoricocieComponent} from './components/administracion/cie/historicocie/historicocie.component';
 import { NotFoundComponent} from './components/shared/not-found/not-found.component';
-import { GestionarIpsComponent } from './components/administracion/gestionar-ips/gestionar-ips.component';
-import { OperacionesIpsComponent } from './components/administracion/gestionar-ips/operaciones-ips/operaciones-ips.component';
+
 
 import { AuthGuard } from "./_guards/auth.guard";
 //data: { preload: true }
@@ -66,18 +55,6 @@ const appRoutes: Routes = [
          { path: "perfiles", component: PerfilesComponent, outlet: 'content' },
          { path: "permisos/:idPerfil", component: PermisosComponent, outlet: 'content' },
          { path: "tipodoc", component: TipoDocumentosComponent, outlet: 'content' },
-         { path: "tipologia", component: TipologiasComponent, outlet: 'content' },
-         { path: "gestionar-ips-erps", component: GestionarEpsIpsComponent, outlet: 'content' },
-         { path: "glosas", component: GlosasComponent, outlet: 'content' },
-         { path: "servicios-mecanismos-pago", component: ServiciosmecanismopagoComponent, outlet: 'content' },
-         { path: "gestionar-cups", component: CupsComponent, outlet: 'content' },
-         { path: "gestionar-cie", component: CieComponent, outlet: 'content' },
-         { path: "gestionar-cums", component: CumsComponent, outlet: 'content' },   
-         { path: "historico-cups", component: HistoricoComponent, outlet: 'content' },
-         { path: "historico-cums", component: HistoricocumsComponent, outlet: 'content' },
-         { path: "historico-cie", component: HistoricocieComponent, outlet: 'content' },
-         { path: "gestionar-ent", component: GestionarIpsComponent, outlet: 'content' },
-         { path: "operaciones-ent/:idRelacion", component: OperacionesIpsComponent, outlet: 'content' },
          { path: "not-found", component: NotFoundComponent, outlet: 'content' } 
       ]      
     },    

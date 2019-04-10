@@ -57,18 +57,8 @@ import { HomeComponent } from './components/home/home.component';
 import { UsuariosComponent } from './components/administracion/usuarios/usuarios.component';
 import { PermisosComponent } from './components/administracion/permisos/permisos.component';
 import { CambiarContrasenaComponent } from './components/autenticacion/cambiar-contrasena/cambiar-contrasena.component';
-import { TipoDocumentosComponent } from './components/administracion/tipo-documentos/tipo-documentos.component';
-import { TipologiasComponent } from './components/administracion/tipologias/tipologias.component';
-import { GestionarEpsIpsComponent } from './components/administracion/erps-ips/gestionar-eps-ips/gestionar-eps-ips.component';
-import { GlosasComponent } from './components/administracion/glosas/glosas.component';
-import { ServiciosmecanismopagoComponent } from './components/administracion/serviciosmecanismopago/serviciosmecanismopago.component';
-import { CupsComponent } from './components/administracion/cups/cups.component';
-import { CieComponent } from './components/administracion/cie/cie.component';
-import { HistoricoComponent } from './components/administracion/cups/historico/historico.component';
+
 import { WelcomeComponent } from './components/shared/welcome/welcome.component';
-import { CumsComponent } from './components/administracion/cums/cums.component';
-import { HistoricocumsComponent } from './components/administracion/cums/historicocums/historicocums.component';
-import { HistoricocieComponent } from './components/administracion/cie/historicocie/historicocie.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 
 
@@ -85,14 +75,7 @@ import { UsuarioService } from './_services/administracion/usuario/usuario.servi
 import { AccionMenuService } from './_services/administracion/menu/accionmenu.service';
 import { PerfilesService } from './_services/administracion/perfiles/perfiles.service';
 import { AutenticacionService } from './_services/autenticacion/autenticacion.service';
-import { EntidadService } from './_services/administracion/entidad/entidad.service';
 import { TipoDocumentoService } from './_services/shared/tipo-documento.service';
-import { CieService } from './_services/administracion/cie/cie.service';
-import { CumsService } from './_services/administracion/cums/cums.service';
-import { GestionarIpsComponent } from './components/administracion/gestionar-ips/gestionar-ips.component';
-import { OperacionesIpsComponent } from './components/administracion/gestionar-ips/operaciones-ips/operaciones-ips.component';
-import { HomologarCupsComponent } from './components/administracion/gestionar-ips/operaciones/homologar-cups/homologar-cups.component';
-import { AsociarIpsComponent } from './components/administracion/gestionar-ips/operaciones/asociar-ips/asociar-ips.component';
 
 
 
@@ -115,25 +98,9 @@ import { AsociarIpsComponent } from './components/administracion/gestionar-ips/o
     LoginComponent,
     ForgotPasswordComponent,
     PermisosComponent,
-    CambiarContrasenaComponent,
-    TipoDocumentosComponent,
-    TipologiasComponent,
-    GestionarEpsIpsComponent,
-    GlosasComponent,
-    ServiciosmecanismopagoComponent,
-    CupsComponent,
-    CieComponent,
-    HistoricoComponent,
-    WelcomeComponent,
-    CumsComponent,
-    HistoricocumsComponent,
-    HistoricocumsComponent,
-    HistoricocieComponent,
-    NotFoundComponent,
-    GestionarIpsComponent,
-    OperacionesIpsComponent,
-    HomologarCupsComponent,
-    AsociarIpsComponent
+    CambiarContrasenaComponent,    
+    WelcomeComponent,    
+    NotFoundComponent    
   ],
   imports: [
     BrowserModule,
@@ -160,7 +127,7 @@ import { AsociarIpsComponent } from './components/administracion/gestionar-ips/o
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     MenuService, UsuarioService, Directivas, AccionMenuService, PerfilesService, 
-    AutenticacionService, EntidadService, TipoDocumentoService, CumsService, CieService
+    AutenticacionService, TipoDocumentoService
   ],
   bootstrap: [AppComponent]
 })
